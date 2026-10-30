@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Órai gyakorlás</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #f8fafc;
+      --text: #1e293b;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
+      color: var(--text);
+      background-color: var(--bg);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    section {
+      background: #ffffff;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2, h3 {
+      color: #0f172a;
+      margin-top: 0;
+    }
+
+    .card-item {
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    #k2 {
+      outline: 2px solid var(--primary);
+    }
+
+    .card-item[data-level="advanced"] {
+      background: #f3f7ff;
+    }
+
+    .card-item:first-child::before {
+      content: "★ ";
+      color: var(--primary);
+    }
+
+    #todo-list {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 1rem;
+    }
+
+    #todo-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    #todo-list span {
+      cursor: pointer;
+    }
+
+    #todo-list span.done {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+
+    .del {
+      background: #ef4444;
+      color: #ffffff;
+      border: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+
+    .flex-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #334155;
+      color: #ffffff;
+      padding: 1rem;
+      border-radius: 0.5rem;
+    }
+
+    .flex-header nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .flex-header a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .box {
+      border: 2px dashed var(--primary);
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 700px) {
+      .flex-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .flex-header nav {
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+
+    .grid-cards {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 900px) {
+      .grid-cards .wide {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 900px) and (min-width: 601px) {
+      .grid-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .grid-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="main-title">Cél: ismétlés</h1>
+
+  <section>
+    <h2>1) Chrome DevTools (Elements + Console)</h2>
+    <p>1. Nyisd meg: F12 → Elements. TODO: módosítsd élőben ennek a gombnak a feliratát.</p>
+    <p>2. TODO: Console-ban írd át az oldal főcímét erre: „Órai gyakorlás”.</p>
+
+    <button id="demo-btn">Felirat módosítása itt</button>
+  </section>
+
+  <section>
+    <h2>2) DOM – mini teendőlista</h2>
+    <form id="todo-form">
+      <input type="text" id="todo-input" placeholder="Új teendő..." required>
+      <button type="submit">Hozzáad</button>
+    </form>
+    <ul id="todo-list"></ul>
+  </section>
+
+  <section>
+    <h2>3) HTML + űrlapok (GET / POST)</h2>
+
+    <h3>GET űrlap</h3>
+    <form method="GET" action="">
+      <input type="text" name="q" placeholder="Keresés...">
+      <button type="submit">Keres</button>
+    </form>
+    <p>Címsor querystring 'q' értéke: <strong id="query-output">—</strong></p>
+
+    <h3>POST űrlap</h3>
+    <form method="POST" action="https://httpbin.org/post" target="_blank">
+      <input type="text" name="data" placeholder="Adat...">
+      <button type="submit">Küldés</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>4) CSS/JS szelektorok</h2>
+    <div class="card-item" id="k1" data-level="basic">Bevezető</div>
+    <div class="card-item featured" id="k2" data-level="intermediate">Közép</div>
+    <div class="card-item" id="k3" data-level="advanced">Haladó</div>
+  </section>
+
+  <section>
+    <h2>5) Box-modell + Flexbox fejléc</h2>
+    <header class="flex-header">
+      <div class="logo">Demo Site</div>
+      <nav>
+        <a href="#">DevTools</a>
+        <a href="#">DOM</a>
+        <a href="#">Grid</a>
+      </nav>
+    </header>
+    <div class="box">Box-modell: content + padding + border + margin</div>
+  </section>
+
+  <section>
+    <h2>6) CSS Grid – reszponzív</h2>
+    <div class="grid-cards">
+      <div class="card-item wide">
+        <strong>Kiemelt</strong><br>
+        Span 2 oszlop nagy kijelzőn.
+      </div>
+      <div class="card-item">Kártya</div>
+      <div class="card-item">Kártya</div>
+      <div class="card-item">Kártya</div>
+      <div class="card-item">Kártya</div>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('main-title').innerText = 'Órai gyakorlás';
+
+    const todoForm = document.getElementById('todo-form');
+    const todoInput = document.getElementById('todo-input');
+    const todoList = document.getElementById('todo-list');
+
+    todoForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const text = todoInput.value.trim();
+      if (!text) return;
+
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${text}</span> <button class="del">Törlés</button>`;
+      todoList.appendChild(li);
+
+      todoInput.value = '';
+    });
+
+    todoList.addEventListener('click', function(e) {
+      if (e.target.tagName === 'SPAN') {
+        e.target.classList.toggle('done');
+      } else if (e.target.classList.contains('del')) {
+        e.target.closest('li').remove();
+      }
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const qValue = urlParams.get('q');
+    if (qValue) {
+      document.getElementById('query-output').innerText = qValue;
+    }
+
+    console.log(document.getElementById('k2'));
+    console.log(document.querySelector('.card-item.featured'));
+    console.log(document.querySelectorAll('.card-item'));
+  </script>
+</body>
+</html>

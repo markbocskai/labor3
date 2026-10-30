@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap + jQuery Órai és Házi Feladat</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .highlight {
+      background-color: #fef08a !important;
+      border-color: #facc15 !important;
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">LOGO</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Főoldal</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contactForm">Kapcsolat</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-4">
+
+    <div id="alertBox"></div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://picsum.photos/300/200?random=1" class="card-img-top" alt="Kártya kép 1">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Részletek Modal</h5>
+            <p class="card-text">Kattints a gombra a felugró ablak tartalmának dinamikus betöltéséhez.</p>
+            <button data-bs-toggle="modal" data-bs-target="#infoModal" class="btn btn-primary mt-auto">Részletek</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://picsum.photos/300/200?random=2" class="card-img-top" alt="Kártya kép 2">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Alert Generálás</h5>
+            <p class="card-text">Kattints a gombra egy dinamikus Bootstrap alert üzenet megjelenítéséhez.</p>
+
+            <button id="showAlert" class="btn btn-warning mt-auto">Alert megjelenítése</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://picsum.photos/300/200?random=3" class="card-img-top" alt="Kártya kép 3">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Interaktív Kártya</h5>
+            <p class="card-text">Próbáld ki a jQuery szövegcsere és highlight funkciókat az alábbi gombokkal.</p>
+            <div class="mt-auto d-flex gap-2">
+              <button id="btnText" class="btn btn-outline-secondary btn-sm">Szöveg csere</button>
+              <button id="btnToggle" class="btn btn-outline-primary btn-sm">Highlight toggle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="demoBox" class="p-3 border bg-white rounded mb-4">
+      <p id="para" class="mb-0">Ez egy teszt bekezdés. Kattints a harmadik kártya gombjaira az interakciókhoz!</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <form id="contactForm" class="p-3 border bg-white rounded">
+          <h4 class="mb-3">Kapcsolatfelvétel</h4>
+          <input id="name" class="form-control mb-2" placeholder="Név" required>
+          <input id="email" type="email" class="form-control mb-2" placeholder="Email" required>
+          <textarea id="msg" class="form-control mb-2" placeholder="Üzenet"></textarea>
+          <button type="submit" class="btn btn-success w-100">Küldés</button>
+          <div id="thanks" class="mt-2 text-success fw-bold"></div>
+        </form>
+      </div>
+
+      <div class="col-md-6">
+        <div class="p-3 border bg-white rounded h-100">
+          <h4 class="mb-3">AJAX GET Teszt</h4>
+          <button id="btnAjax" class="btn btn-info text-white mb-2">Adatok lekérése (httpbin)</button>
+          <pre id="result" class="bg-light p-2 border rounded style-scroll" style="max-height: 200px; overflow-y: auto;">Kattints a gombra az adatok betöltéséhez...</pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal fade" id="infoModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal Cím</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>Alapértelmezett tartalom.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+
+      $('#showAlert').on('click', function() {
+        const alertHtml = `
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Sikeres művelet! Ez egy dinamikusan létrehozott Bootstrap alert.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        `;
+        $('#alertBox').html(alertHtml);
+      });
+
+      $('#infoModal').on('show.bs.modal', function() {
+        $('.modal-body p').text('Tartalom betöltve jQuery-ből a modal megnyitásakor.');
+      });
+
+      $('#contactForm').on('submit', function(e) {
+        e.preventDefault();
+        const nev = $('#name').val().trim();
+        if (nev) {
+          $('#thanks').text('Köszönjük, ' + nev + '!');
+          $('#contactForm')[0].reset();
+        }
+      });
+
+      $('#btnText').on('click', function() {
+        $('#para').text('A bekezdés szövege sikeresen megváltozott jQuery segítségével!');
+      });
+
+      $('#btnToggle').on('click', function() {
+        $('#demoBox').toggleClass('highlight');
+      });
+
+      $('#btnAjax').on('click', function() {
+        $('#result').text('Betöltés...');
+        $.get('https://httpbin.org/get', function(data) {
+          $('#result').text(JSON.stringify(data, null, 2));
+        }).fail(function() {
+          $('#result').text('Hiba történt az AJAX kérés során.');
+        });
+      });
+
+    });
+  </script>
+</body>
+</html>
